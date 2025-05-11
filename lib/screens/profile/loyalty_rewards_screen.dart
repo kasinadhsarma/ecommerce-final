@@ -826,8 +826,13 @@ class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
                   modelReward,
                 );
 
-                if (success && mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
+                if (success) {
+                  if (!mounted) return;
+
+                  // Store context in local variable
+                  final currentContext = context;
+
+                  ScaffoldMessenger.of(currentContext).showSnackBar(
                     SnackBar(
                       content: Text('Successfully redeemed ${reward.title}!'),
                       backgroundColor: Colors.green,
@@ -835,11 +840,14 @@ class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
                   );
 
                   // Show reward code
-                  if (mounted) {
-                    _showRewardCode(context, reward);
-                  }
-                } else if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
+                  _showRewardCode(currentContext, reward);
+                } else {
+                  if (!mounted) return;
+
+                  // Store context in local variable
+                  final currentContext = context;
+
+                  ScaffoldMessenger.of(currentContext).showSnackBar(
                     const SnackBar(
                       content:
                           Text('Failed to redeem reward. Please try again.'),

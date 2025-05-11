@@ -420,15 +420,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 7)),
     );
-
     if (pickedDate != null) {
       // Check if widget is still mounted before showing time picker
       if (!mounted) return;
 
+      // Store context in local variable before async gap
+      final currentContext = context;
+
       final TimeOfDay? pickedTime = await showTimePicker(
-        context: context,
+        context: currentContext,
         initialTime: TimeOfDay.now(),
       );
+
+      // Check again if widget is still mounted after async operation
+      if (!mounted) return;
 
       if (pickedTime != null) {
         setState(() {
@@ -501,22 +506,28 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       await loyaltyProvider.addPoints(user.id, newOrder.loyaltyPointsEarned);
 
       // Navigate to success screen
-      if (mounted) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => OrderSuccessScreen(order: newOrder),
-          ),
-        );
-      }
+      if (!mounted) return;
+
+      // Store context in local variable
+      final currentContext = context;
+
+      Navigator.pushReplacement(
+        currentContext,
+        MaterialPageRoute(
+          builder: (_) => OrderSuccessScreen(order: newOrder),
+        ),
+      );
     } catch (e) {
-      if (mounted) {
-        showSnackBar(
-          context,
-          'Failed to place order: ${e.toString()}',
-          isError: true,
-        );
-      }
+      if (!mounted) return;
+
+      // Store context in local variable
+      final currentContext = context;
+
+      showSnackBar(
+        currentContext,
+        'Failed to place order: ${e.toString()}',
+        isError: true,
+      );
     }
   }
 }
