@@ -12,9 +12,10 @@ subprojects {
     val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
     project.layout.buildDirectory.value(newSubprojectBuildDir)
 }
-subprojects {
-    project.evaluationDependsOn(":app")
-}
+// Comment out this block which was causing the evaluation error
+// subprojects {
+//    project.evaluationDependsOn(":app")
+// }
 
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
