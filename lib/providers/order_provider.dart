@@ -3,7 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import '../models/order_model.dart';
 import '../models/cart_model.dart';
-import '../models/user_model.dart';
 
 class OrderProvider with ChangeNotifier {
   List<Order> _orders = [];

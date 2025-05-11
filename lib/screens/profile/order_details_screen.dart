@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import '../../models/order_model.dart';
 import '../../utils/app_utils.dart';
 import '../../widgets/common_widgets.dart';
-import '../../providers/auth_provider.dart';
 import '../../providers/order_provider.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
@@ -222,8 +221,6 @@ class OrderDetailsScreen extends StatelessWidget {
         return 'Delivered';
       case OrderStatus.cancelled:
         return 'Cancelled';
-      default:
-        return '';
     }
   }
 
@@ -310,7 +307,7 @@ class OrderDetailsScreen extends StatelessWidget {
                   ],
                 ),
               );
-            }).toList(),
+            }),
 
             const Divider(height: 24),
 

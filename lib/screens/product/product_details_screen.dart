@@ -169,7 +169,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       vertical: 5,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.deepPurple.withOpacity(0.1),
+                      color: Colors.deepPurple.withOpacity(0.25),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(

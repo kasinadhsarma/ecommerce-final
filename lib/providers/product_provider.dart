@@ -10,7 +10,7 @@ class ProductProvider with ChangeNotifier {
   List<Product> _products = [];
   List<String> _categories = [];
   List<Product> _featuredProducts = [];
-  Map<String, List<Product>> _productsByCategory = {};
+  final Map<String, List<Product>> _productsByCategory = {};
   List<String> _favoriteProductIds = [];
   bool _isLoading = false;
   String? _error;

@@ -10,12 +10,12 @@ class OrderSuccessScreen extends StatefulWidget {
   final Order order;
 
   const OrderSuccessScreen({
-    Key? key,
+    super.key,
     required this.order,
-  }) : super(key: key);
+  });
 
   @override
-  _OrderSuccessScreenState createState() => _OrderSuccessScreenState();
+  State<OrderSuccessScreen> createState() => _OrderSuccessScreenState();
 }
 
 class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
@@ -42,10 +42,12 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        _navigateToHome();
-        return false;
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (!didPop) {
+          _navigateToHome();
+        }
       },
       child: Scaffold(
         body: SafeArea(

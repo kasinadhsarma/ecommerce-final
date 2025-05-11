@@ -4,15 +4,14 @@ import 'dart:convert';
 import '../models/loyalty_model.dart';
 
 class LoyaltyProvider with ChangeNotifier {
-  final List<UserLoyalty> _usersLoyalty = [];
   UserLoyalty? _userLoyalty;
   List<LoyaltyReward> _availableRewards = [];
   bool _isLoading = false;
   String? _error;
 
   // Maps to store user points and rewards
-  Map<String, int> _userPoints = {};
-  Map<String, List<RedeemedReward>> _userRewards = {};
+  final Map<String, int> _userPoints = {};
+  final Map<String, List<RedeemedReward>> _userRewards = {};
 
   List<LoyaltyReward> get availableRewards => _availableRewards;
   bool get isLoading => _isLoading;
@@ -126,7 +125,7 @@ class LoyaltyProvider with ChangeNotifier {
     } catch (e) {
       _error = 'Failed to load loyalty data: $e';
       if (kDebugMode) {
-        print(_error);
+        debugPrint(_error);
       }
     }
 
@@ -207,7 +206,7 @@ class LoyaltyProvider with ChangeNotifier {
     } catch (e) {
       _error = 'Failed to redeem reward: $e';
       if (kDebugMode) {
-        print(_error);
+        debugPrint(_error);
       }
       _setLoading(false);
       notifyListeners();
@@ -288,7 +287,7 @@ class LoyaltyProvider with ChangeNotifier {
     } catch (e) {
       _error = 'Failed to add points: $e';
       if (kDebugMode) {
-        print(_error);
+        debugPrint(_error);
       }
       _setLoading(false);
       notifyListeners();
@@ -339,7 +338,7 @@ class LoyaltyProvider with ChangeNotifier {
     } catch (e) {
       _error = 'Failed to use points: $e';
       if (kDebugMode) {
-        print(_error);
+        debugPrint(_error);
       }
       _setLoading(false);
       notifyListeners();

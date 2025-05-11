@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 // Conditionally import Firebase
-import 'utils/web_compatibility_helper.dart';
 import 'services/stripe_web_service.dart';
 
 // Import only on native platforms
@@ -37,7 +36,7 @@ void main() async {
     } else {
       // Initialize web-specific services
       StripeWebService.initStripeWeb();
-      print('Running in web mode');
+      debugPrint('Running in web mode');
     }
   } catch (e) {
     debugPrint('Error during initialization: $e');

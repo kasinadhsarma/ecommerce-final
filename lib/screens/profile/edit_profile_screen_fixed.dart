@@ -547,11 +547,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         _uploadProfileImage();
       }
     } catch (e) {
-      showSnackBar(
-        context,
-        'Error picking image: ${e.toString()}',
-        isError: true,
-      );
+      if (mounted) {
+        showSnackBar(
+          context,
+          'Error picking image: ${e.toString()}',
+          isError: true,
+        );
+      }
     }
   }
 
