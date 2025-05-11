@@ -3,18 +3,18 @@ import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/order_provider.dart';
 import '../../models/order_model.dart';
-import '../../utils/app_utils.dart';
+import '../../utils/app_utils.dart' as app_utils;
 import '../../widgets/common_widgets.dart';
 import 'order_details_screen.dart';
 
 class OrderHistoryScreen extends StatefulWidget {
-  const OrderHistoryScreen({Key? key}) : super(key: key);
+  const OrderHistoryScreen({super.key});
 
   @override
-  _OrderHistoryScreenState createState() => _OrderHistoryScreenState();
+  State<OrderHistoryScreen> createState() => OrderHistoryScreenState();
 }
 
-class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
+class OrderHistoryScreenState extends State<OrderHistoryScreen> {
   String _selectedFilter = 'All';
   final List<String> _filters = ['All', 'Pending', 'Completed', 'Cancelled'];
 
@@ -135,7 +135,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
       case OrderStatus.pending:
         statusColor = Colors.orange;
         break;
-      case OrderStatus.processing:
+      case OrderStatus.confirmed:
         statusColor = Colors.blue;
         break;
       case OrderStatus.delivered:
@@ -174,7 +174,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                     ),
                   ),
                   Text(
-                    DateTimeUtils.formatDate(order.orderDate),
+                    app_utils.DateTimeUtils.formatDate(order.orderDate),
                     style: TextStyle(
                       color: Colors.grey.shade600,
                       fontSize: 14,
@@ -222,7 +222,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Total: ${CurrencyUtils.formatCurrency(order.totalAmount)}',
+                    'Total: ${app_utils.CurrencyUtils.formatCurrency(order.totalAmount)}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -234,7 +234,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: statusColor.withOpacity(0.1),
+                      color: statusColor.withAlpha(25),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
@@ -379,7 +379,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
 
   void _reorder(BuildContext context, Order order) {
     // Implement reorder functionality
-    showSnackBar(
+    app_utils.showSnackBar(
       context,
       'Reorder functionality will be implemented soon!',
     );
@@ -407,13 +407,15 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
 
               final success = await orderProvider.cancelOrder(order.id);
 
-              if (success && mounted) {
-                showSnackBar(
+              if (!mounted) return;
+
+              if (success) {
+                app_utils.showSnackBar(
                   context,
                   'Order cancelled successfully',
                 );
-              } else if (mounted) {
-                showSnackBar(
+              } else {
+                app_utils.showSnackBar(
                   context,
                   'Failed to cancel order. Please try again.',
                   isError: true,

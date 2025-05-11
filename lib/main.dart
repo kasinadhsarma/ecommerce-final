@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+
+// Conditionally import Firebase
+import 'utils/web_compatibility_helper.dart';
+import 'services/stripe_web_service.dart';
+
+// Import only on native platforms
+import 'package:flutter/services.dart' if (dart.library.html) '';
+
+// Conditionally import Firebase
+import 'package:firebase_core/firebase_core.dart' if (dart.library.html) '';
 
 // Providers
 import 'providers/auth_provider.dart';
@@ -16,19 +25,23 @@ import 'screens/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Firebase (In a real app, you would configure Firebase properly)
+  // Initialize Firebase only on native platforms
   try {
-    await Firebase.initializeApp();
+    if (!kIsWeb) {
+      await Firebase.initializeApp();
+      // Set preferred orientations
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    } else {
+      // Initialize web-specific services
+      StripeWebService.initStripeWeb();
+      print('Running in web mode');
+    }
   } catch (e) {
-    debugPrint('Failed to initialize Firebase: $e');
-    // Continue without Firebase for the demo
+    debugPrint('Error during initialization: $e');
   }
-
-  // Set preferred orientations
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
 
   runApp(const MyApp());
 }

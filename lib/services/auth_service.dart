@@ -1,15 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../models/user_model.dart' as app_models;
 import 'biometric_auth_service.dart';
+import '../utils/firebase_config.dart';
 
 class AuthService {
-  final firebase_auth.FirebaseAuth _firebaseAuth =
-      firebase_auth.FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
   final BiometricAuthService _biometricService = BiometricAuthService();
+  late firebase_auth.FirebaseAuth _firebaseAuth;
+  late GoogleSignIn _googleSignIn;
+
+  AuthService() {
+    if (!kIsWeb && AppFirebaseConfig.isFirebaseEnabled) {
+      _firebaseAuth = firebase_auth.FirebaseAuth.instance;
+      _googleSignIn = GoogleSignIn();
+    }
+  }
 
   // Get current user
   app_models.User? getCurrentUser() {
@@ -124,9 +131,7 @@ class AuthService {
 
   // Check if biometric authentication is available
   Future<bool> isBiometricAvailable() async {
-    final canCheckBiometrics = await _localAuth.canCheckBiometrics;
-    final isDeviceSupported = await _localAuth.isDeviceSupported();
-    return canCheckBiometrics && isDeviceSupported;
+    return await _biometricService.isBiometricsAvailable();
   }
 
   // Enable biometric login
@@ -150,13 +155,7 @@ class AuthService {
   // Authenticate with biometrics
   Future<bool> authenticateWithBiometrics() async {
     try {
-      return await _localAuth.authenticate(
-        localizedReason: 'Authenticate to access your account',
-        options: const AuthenticationOptions(
-          stickyAuth: true,
-          biometricOnly: true,
-        ),
-      );
+      return await _biometricService.authenticate();
     } catch (e) {
       return false;
     }

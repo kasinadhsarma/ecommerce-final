@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/auth_provider.dart';
 import '../../providers/loyalty_provider.dart';
-import '../../models/loyalty_model.dart';
+import '../../models/loyalty_model.dart' as lib_models;
 import '../../widgets/common_widgets.dart';
 import '../../utils/app_utils.dart';
 
@@ -813,10 +813,17 @@ class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
               Navigator.pop(context);
 
               if (authProvider.isAuthenticated && authProvider.user != null) {
+                // Create a LoyaltyReward model from our UI reward
+                final modelReward = lib_models.LoyaltyReward(
+                  id: reward.id,
+                  title: reward.title,
+                  description: reward.description,
+                  pointsCost: reward.pointsCost,
+                );
+
                 final success = await loyaltyProvider.redeemPoints(
                   authProvider.user!.id,
-                  reward.pointsCost,
-                  'Redeemed: ${reward.title}',
+                  modelReward,
                 );
 
                 if (success && mounted) {

@@ -96,8 +96,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           radius: 50,
                           backgroundColor: Colors.deepPurple.shade100,
                           child: Text(
-                            user.name.isNotEmpty
-                                ? user.name.substring(0, 1).toUpperCase()
+                            user.name!.isNotEmpty
+                                ? user.name!.substring(0, 1).toUpperCase()
                                 : 'U',
                             style: const TextStyle(
                               fontSize: 40,
@@ -110,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                         // User name
                         Text(
-                          user.name,
+                          user.name ?? 'Unknown User',
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,

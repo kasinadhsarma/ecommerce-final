@@ -4,7 +4,7 @@ import '../../utils/app_utils.dart';
 import '../../widgets/common_widgets.dart';
 import 'package:confetti/confetti.dart';
 import '../home_screen.dart';
-import 'profile/order_history_screen.dart';
+import '../profile/order_history_screen.dart';
 
 class OrderSuccessScreen extends StatefulWidget {
   final Order order;
