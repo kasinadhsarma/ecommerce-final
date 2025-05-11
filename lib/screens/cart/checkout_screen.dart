@@ -464,12 +464,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final user = authProvider.user;
 
     if (user == null) {
-      if (!context.mounted) {
-        // Added curly braces
+      if (!mounted) {
+        // Use State.mounted
         return;
       }
       showSnackBar(
-        context,
+        this.context, // Use State.context
         'You need to be logged in to place an order',
         isError: true,
       );
@@ -511,20 +511,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
       // Navigate to success screen
       if (!mounted) {
+        // Use State.mounted
         return;
       }
       Navigator.pushReplacement(
-        context, // Use context parameter directly
+        this.context, // Use State.context
         MaterialPageRoute(
           builder: (_) => OrderSuccessScreen(order: newOrder),
         ),
       );
     } catch (e) {
       if (!mounted) {
+        // Use State.mounted
         return;
       }
       showSnackBar(
-        context, // Use context parameter directly
+        this.context, // Use State.context
         'Failed to place order: ${e.toString()}',
         isError: true,
       );
