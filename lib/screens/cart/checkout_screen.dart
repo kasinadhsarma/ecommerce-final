@@ -421,18 +421,20 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       lastDate: DateTime.now().add(const Duration(days: 7)),
     );
     if (pickedDate != null) {
-      // Check if widget is still mounted before showing time picker
-      if (!mounted) return;
+      // Check if the BuildContext passed as a parameter is still mounted.
+      // This is crucial because 'context' (the parameter) is used in showTimePicker.
+      if (!context.mounted) return;
 
-      // Store context in local variable before async gap
+      // Store context in local variable before async gap.
+      // Since 'context' (parameter) was checked, this assignment should now be fine.
       final currentContext = context;
 
       final TimeOfDay? pickedTime = await showTimePicker(
-        context: currentContext,
+        context: currentContext, // Using the captured (and checked) context.
         initialTime: TimeOfDay.now(),
       );
 
-      // Check again if widget is still mounted after async operation
+      // Check if the State object itself is still mounted before calling setState.
       if (!mounted) return;
 
       if (pickedTime != null) {
