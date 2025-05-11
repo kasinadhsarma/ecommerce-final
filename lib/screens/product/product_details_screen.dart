@@ -13,12 +13,12 @@ class ProductDetailsScreen extends StatefulWidget {
   final Product product;
 
   const ProductDetailsScreen({
-    Key? key,
+    super.key,
     required this.product,
-  }) : super(key: key);
+  });
 
   @override
-  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
+  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
@@ -169,7 +169,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       vertical: 5,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.deepPurple.withOpacity(0.25),
+                      color: Colors.deepPurple.withAlpha(64),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(

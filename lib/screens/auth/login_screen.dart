@@ -104,6 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
     final userId = await biometricService.authenticateAndGetUserId();
 
     if (userId != null) {
+      // Check if still mounted before accessing context
+      if (!mounted) return;
+
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
 
       // Set loading state to true

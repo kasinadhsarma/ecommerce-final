@@ -10,7 +10,7 @@ import '../../widgets/common_widgets.dart';
 import '../../services/biometric_auth_service.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  const EditProfileScreen({super.key});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -547,11 +547,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         _uploadProfileImage();
       }
     } catch (e) {
-      showSnackBar(
-        context,
-        'Error picking image: ${e.toString()}',
-        isError: true,
-      );
+      if (mounted) {
+        showSnackBar(
+          context,
+          'Error picking image: ${e.toString()}',
+          isError: true,
+        );
+      }
     }
   }
 
@@ -559,36 +561,44 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     // For demo purposes, we'll just show a success message
     // In a real app, you would upload the image to a server and get a URL back
 
+    // Check if we have an image to upload
+    if (_imageFile == null) {
+      if (mounted) {
+        showSnackBar(context, 'No image selected', isError: true);
+      }
+      return;
+    }
+
     setState(() {
       _isLoading = true;
     });
 
     // Simulate network delay
     Future.delayed(const Duration(seconds: 2), () {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
+      if (!mounted) return;
 
-        // Update the user profile with the new image URL
-        final authProvider = Provider.of<AuthProvider>(context, listen: false);
-        final currentUser = authProvider.user;
+      setState(() {
+        _isLoading = false;
+      });
 
-        if (currentUser != null) {
-          // In a real app, you would get this URL from your server after uploading
-          const newImageUrl = 'https://example.com/profile_image.jpg';
+      // Update the user profile with the new image URL
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      final currentUser = authProvider.user;
 
-          final updatedUser = currentUser.copyWith(
-            profileImageUrl: newImageUrl,
-          );
+      if (currentUser != null) {
+        // In a real app, you would get this URL from your server after uploading
+        const newImageUrl = 'https://example.com/profile_image.jpg';
 
-          authProvider.updateUserProfile(updatedUser);
+        final updatedUser = currentUser.copyWith(
+          profileImageUrl: newImageUrl,
+        );
 
-          showSnackBar(
-            context,
-            'Profile image updated successfully!',
-          );
-        }
+        authProvider.updateUserProfile(updatedUser);
+
+        showSnackBar(
+          context,
+          'Profile image updated successfully!',
+        );
       }
     });
   }

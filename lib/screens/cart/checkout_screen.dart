@@ -10,10 +10,10 @@ import '../../widgets/common_widgets.dart';
 import 'order_success_screen.dart';
 
 class CheckoutScreen extends StatefulWidget {
-  const CheckoutScreen({Key? key}) : super(key: key);
+  const CheckoutScreen({super.key});
 
   @override
-  _CheckoutScreenState createState() => _CheckoutScreenState();
+  State<CheckoutScreen> createState() => _CheckoutScreenState();
 }
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
@@ -422,6 +422,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     );
 
     if (pickedDate != null) {
+      // Check if widget is still mounted before showing time picker
+      if (!mounted) return;
+
       final TimeOfDay? pickedTime = await showTimePicker(
         context: context,
         initialTime: TimeOfDay.now(),
@@ -507,11 +510,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         );
       }
     } catch (e) {
-      showSnackBar(
-        context,
-        'Failed to place order: ${e.toString()}',
-        isError: true,
-      );
+      if (mounted) {
+        showSnackBar(
+          context,
+          'Failed to place order: ${e.toString()}',
+          isError: true,
+        );
+      }
     }
   }
 }

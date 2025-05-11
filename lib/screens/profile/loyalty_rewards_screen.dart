@@ -7,10 +7,10 @@ import '../../widgets/common_widgets.dart';
 import '../../utils/app_utils.dart';
 
 class LoyaltyRewardsScreen extends StatefulWidget {
-  const LoyaltyRewardsScreen({Key? key}) : super(key: key);
+  const LoyaltyRewardsScreen({super.key});
 
   @override
-  _LoyaltyRewardsScreenState createState() => _LoyaltyRewardsScreenState();
+  State<LoyaltyRewardsScreen> createState() => _LoyaltyRewardsScreenState();
 }
 
 class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
@@ -333,7 +333,7 @@ class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
               ),
             ),
           );
-        }).toList(),
+        }),
       ],
     );
   }
@@ -393,8 +393,8 @@ class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
                   height: 40,
                   decoration: BoxDecoration(
                     color: isEarned
-                        ? Colors.green.withOpacity(0.1)
-                        : Colors.red.withOpacity(0.1),
+                        ? Colors.green.withAlpha(26) // 0.1 * 255 = ~26
+                        : Colors.red.withAlpha(26), // 0.1 * 255 = ~26
                     shape: BoxShape.circle,
                   ),
                   child: Icon(
@@ -736,7 +736,7 @@ class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
                       ],
                     ),
                   );
-                }).toList(),
+                }),
               ],
             ),
           ),

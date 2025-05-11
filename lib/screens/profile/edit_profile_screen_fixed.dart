@@ -10,7 +10,7 @@ import '../../widgets/common_widgets.dart';
 import '../../services/biometric_auth_service.dart';
 
 class EditProfileScreen extends StatefulWidget {
-  const EditProfileScreen({Key? key}) : super(key: key);
+  const EditProfileScreen({super.key});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -560,6 +560,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   void _uploadProfileImage() {
     // For demo purposes, we'll just show a success message
     // In a real app, you would upload the image to a server and get a URL back
+
+    // Check if we have an image to upload
+    if (_imageFile == null) {
+      showSnackBar(context, 'No image selected', isError: true);
+      return;
+    }
 
     setState(() {
       _isLoading = true;
