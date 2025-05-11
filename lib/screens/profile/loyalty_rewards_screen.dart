@@ -827,12 +827,13 @@ class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
                 );
 
                 if (success) {
-                  if (!mounted) return;
+                  if (!context.mounted) {
+                    return; // Corrected: check parameter context's mounted status
+                  }
 
-                  // Store context in local variable
-                  final currentContext = context;
-
-                  ScaffoldMessenger.of(currentContext).showSnackBar(
+                  // No longer need to store context in a local variable
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    // Use context directly
                     SnackBar(
                       content: Text('Successfully redeemed ${reward.title}!'),
                       backgroundColor: Colors.green,
@@ -840,14 +841,18 @@ class _LoyaltyRewardsScreenState extends State<LoyaltyRewardsScreen>
                   );
 
                   // Show reward code
-                  _showRewardCode(currentContext, reward);
+                  if (!context.mounted) {
+                    return; // Corrected: check parameter context's mounted status
+                  }
+                  _showRewardCode(context, reward); // Use context directly
                 } else {
-                  if (!mounted) return;
+                  if (!context.mounted) {
+                    return; // Corrected: check parameter context's mounted status
+                  }
 
-                  // Store context in local variable
-                  final currentContext = context;
-
-                  ScaffoldMessenger.of(currentContext).showSnackBar(
+                  // No longer need to store context in a local variable
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    // Use context directly
                     const SnackBar(
                       content:
                           Text('Failed to redeem reward. Please try again.'),

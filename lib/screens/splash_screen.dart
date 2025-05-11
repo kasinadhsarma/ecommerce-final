@@ -9,13 +9,13 @@ import 'home_screen.dart';
 import 'auth/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  SplashScreenState createState() => SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
                   width: 150,
                   height: 150,
                   decoration: BoxDecoration(
-                    color: Colors.deepPurple.withOpacity(0.1),
+                    color: Colors.deepPurple.withAlpha((255 * 0.1).round()),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(

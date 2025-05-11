@@ -4,13 +4,13 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../widgets/common_widgets.dart';
 
 class StoreDetailsScreen extends StatefulWidget {
-  const StoreDetailsScreen({Key? key}) : super(key: key);
+  const StoreDetailsScreen({super.key});
 
   @override
-  _StoreDetailsScreenState createState() => _StoreDetailsScreenState();
+  StoreDetailsScreenState createState() => StoreDetailsScreenState();
 }
 
-class _StoreDetailsScreenState extends State<StoreDetailsScreen>
+class StoreDetailsScreenState extends State<StoreDetailsScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final List<Store> _stores = [
@@ -458,7 +458,7 @@ class _StoreDetailsScreenState extends State<StoreDetailsScreen>
               ],
             ),
           );
-        }).toList(),
+        }),
 
         const SizedBox(height: 24),
 
@@ -637,16 +637,16 @@ class FullScreenImageGallery extends StatefulWidget {
   final int initialIndex;
 
   const FullScreenImageGallery({
-    Key? key,
+    super.key,
     required this.images,
     required this.initialIndex,
-  }) : super(key: key);
+  });
 
   @override
-  _FullScreenImageGalleryState createState() => _FullScreenImageGalleryState();
+  FullScreenImageGalleryState createState() => FullScreenImageGalleryState();
 }
 
-class _FullScreenImageGalleryState extends State<FullScreenImageGallery> {
+class FullScreenImageGalleryState extends State<FullScreenImageGallery> {
   late PageController _pageController;
   late int _currentIndex;
 

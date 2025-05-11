@@ -12,13 +12,13 @@ import 'store_details_screen.dart';
 import 'loyalty_rewards_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+  ProfileScreenState createState() => ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class ProfileScreenState extends State<ProfileScreen> {
   bool _isBiometricAvailable = false;
 
   @override

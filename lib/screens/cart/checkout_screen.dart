@@ -464,6 +464,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     final user = authProvider.user;
 
     if (user == null) {
+      if (!context.mounted) {
+        // Added curly braces
+        return;
+      }
       showSnackBar(
         context,
         'You need to be logged in to place an order',
@@ -506,25 +510,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
       await loyaltyProvider.addPoints(user.id, newOrder.loyaltyPointsEarned);
 
       // Navigate to success screen
-      if (!mounted) return;
-
-      // Store context in local variable
-      final currentContext = context;
-
+      if (!mounted) {
+        return;
+      }
       Navigator.pushReplacement(
-        currentContext,
+        context, // Use context parameter directly
         MaterialPageRoute(
           builder: (_) => OrderSuccessScreen(order: newOrder),
         ),
       );
     } catch (e) {
-      if (!mounted) return;
-
-      // Store context in local variable
-      final currentContext = context;
-
+      if (!mounted) {
+        return;
+      }
       showSnackBar(
-        currentContext,
+        context, // Use context parameter directly
         'Failed to place order: ${e.toString()}',
         isError: true,
       );

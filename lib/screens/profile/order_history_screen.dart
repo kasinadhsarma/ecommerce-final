@@ -203,7 +203,7 @@ class OrderHistoryScreenState extends State<OrderHistoryScreen> {
                     overflow: TextOverflow.ellipsis,
                   ),
                 );
-              }).toList(),
+              }),
 
               // Show "and more" if there are more items
               if (order.items.length > 2)
@@ -407,14 +407,18 @@ class OrderHistoryScreenState extends State<OrderHistoryScreen> {
 
               final success = await orderProvider.cancelOrder(order.id);
 
-              if (!mounted) return;
+              if (!context.mounted) {
+                return; // Corrected: check parameter context's mounted status
+              }
 
               if (success) {
+                // No need for another mounted check here as it's synchronous after the await guard
                 app_utils.showSnackBar(
                   context,
                   'Order cancelled successfully',
                 );
               } else {
+                // No need for another mounted check here
                 app_utils.showSnackBar(
                   context,
                   'Failed to cancel order. Please try again.',

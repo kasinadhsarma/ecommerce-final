@@ -128,15 +128,15 @@ class BiometricSetupScreen extends StatefulWidget {
   final String userId;
 
   const BiometricSetupScreen({
-    Key? key,
+    super.key,
     required this.userId,
-  }) : super(key: key);
+  });
 
   @override
-  _BiometricSetupScreenState createState() => _BiometricSetupScreenState();
+  BiometricSetupScreenState createState() => BiometricSetupScreenState();
 }
 
-class _BiometricSetupScreenState extends State<BiometricSetupScreen> {
+class BiometricSetupScreenState extends State<BiometricSetupScreen> {
   final BiometricAuthService _biometricService = BiometricAuthService();
   bool _isLoading = true;
   bool _isBiometricAvailable = false;

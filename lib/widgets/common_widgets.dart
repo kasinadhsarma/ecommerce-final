@@ -10,10 +10,10 @@ class ProductCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   const ProductCard({
-    Key? key,
+    super.key,
     required this.product,
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +67,7 @@ class ProductCard extends StatelessWidget {
                       child: Container(
                         padding: const EdgeInsets.all(5),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withAlpha((255 * 0.8).round()),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -146,12 +146,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? onBackPressed;
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.actions,
     this.showBackButton = true,
     this.onBackPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -184,9 +184,9 @@ class LoadingIndicator extends StatelessWidget {
   final String? message;
 
   const LoadingIndicator({
-    Key? key,
+    super.key,
     this.message,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -214,10 +214,10 @@ class ErrorDisplay extends StatelessWidget {
   final VoidCallback? onRetry;
 
   const ErrorDisplay({
-    Key? key,
+    super.key,
     required this.errorMessage,
     this.onRetry,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -279,7 +279,7 @@ class CustomTextField extends StatefulWidget {
   final bool enabled;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.label,
     this.hint,
     required this.controller,
@@ -292,13 +292,13 @@ class CustomTextField extends StatefulWidget {
     this.maxLength,
     this.onChanged,
     this.enabled = true,
-  }) : super(key: key);
+  });
 
   @override
-  _CustomTextFieldState createState() => _CustomTextFieldState();
+  CustomTextFieldState createState() => CustomTextFieldState();
 }
 
-class _CustomTextFieldState extends State<CustomTextField> {
+class CustomTextFieldState extends State<CustomTextField> {
   bool _showPassword = false;
 
   @override
@@ -353,7 +353,7 @@ class CustomButton extends StatelessWidget {
   final IconData? icon;
 
   const CustomButton({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     this.isLoading = false,
@@ -364,7 +364,7 @@ class CustomButton extends StatelessWidget {
     this.height = 50,
     this.borderRadius = 10,
     this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -435,10 +435,10 @@ class CategoryCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const CategoryCard({
-    Key? key,
+    super.key,
     required this.categoryName,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
