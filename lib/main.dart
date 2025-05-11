@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/services.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-// Conditionally import Firebase
+// Import services
 import 'services/stripe_web_service.dart';
 
-// Import only on native platforms
-import 'package:flutter/services.dart' if (dart.library.html) '';
-
-// Conditionally import Firebase
-import 'package:firebase_core/firebase_core.dart' if (dart.library.html) '';
+// Import the JS interop utility
+import 'utils/js_interop_utils.dart';
 
 // Providers
 import 'providers/auth_provider.dart';
@@ -24,19 +23,30 @@ import 'screens/splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Initialize Firebase only on native platforms
+  // Initialize Firebase with platform check
   try {
-    if (!kIsWeb) {
+    if (kIsWeb) {
+      // Web-specific initialization
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"),
+      );
+      // Initialize web-specific services
+      StripeWebService.initStripeWeb();
+      debugPrint('Running in web mode');
+    } else {
+      // Mobile initialization
       await Firebase.initializeApp();
       // Set preferred orientations
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,
       ]);
-    } else {
-      // Initialize web-specific services
-      StripeWebService.initStripeWeb();
-      debugPrint('Running in web mode');
     }
   } catch (e) {
     debugPrint('Error during initialization: $e');
