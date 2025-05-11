@@ -9,7 +9,7 @@ class LoyaltyProvider with ChangeNotifier {
   List<LoyaltyReward> _availableRewards = [];
   bool _isLoading = false;
   String? _error;
-  
+
   // Maps to store user points and rewards
   Map<String, int> _userPoints = {};
   Map<String, List<RedeemedReward>> _userRewards = {};
@@ -213,7 +213,7 @@ class LoyaltyProvider with ChangeNotifier {
         isUsed: true,
         code: oldReward.code,
       );
-      
+
       rewards[rewardIndex] = updatedReward;
 
       notifyListeners();
