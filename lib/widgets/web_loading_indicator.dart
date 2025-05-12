@@ -13,13 +13,13 @@ class WebLoadingIndicator extends StatelessWidget {
   final Color? color;
 
   const WebLoadingIndicator({
-    Key? key,
+    super.key,
     this.message,
     this.progress,
     required this.isLoading,
     this.child,
     this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -107,11 +107,12 @@ class _WebLoadingOverlayState extends State<_WebLoadingOverlay>
             padding:
                 const EdgeInsets.symmetric(vertical: 24.0, horizontal: 24.0),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(_opacityAnimation.value),
+              color: Colors.black
+                  .withAlpha((_opacityAnimation.value * 255).toInt()),
               borderRadius: BorderRadius.circular(8.0),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withAlpha(51), // 0.2 * 255 = 51
                   blurRadius: 10,
                   spreadRadius: 1,
                 ),
@@ -125,7 +126,7 @@ class _WebLoadingOverlayState extends State<_WebLoadingOverlay>
                   height: 48,
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withAlpha(51), // 0.2 * 255 = 51
                     shape: BoxShape.circle,
                   ),
                   child: CircularProgressIndicator(
@@ -177,14 +178,14 @@ class WebImageLoadingIndicator extends StatelessWidget {
   final Widget? errorWidget;
 
   const WebImageLoadingIndicator({
-    Key? key,
+    super.key,
     required this.imageUrl,
     this.width,
     this.height,
     this.fit,
     this.placeholder,
     this.errorWidget,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

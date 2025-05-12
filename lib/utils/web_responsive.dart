@@ -142,9 +142,9 @@ class ResponsiveBuilder extends StatelessWidget {
       BuildContext, bool isMobile, bool isTablet, bool isDesktop) builder;
 
   const ResponsiveBuilder({
-    Key? key,
+    super.key,
     required this.builder,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

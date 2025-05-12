@@ -132,7 +132,6 @@ class NetworkErrorHandler {
       case NetworkErrorType.cors:
         return 'Security Error';
       case NetworkErrorType.unknown:
-      default:
         return 'Error';
     }
   }
@@ -155,7 +154,6 @@ class NetworkErrorHandler {
         case NetworkErrorType.notFound:
           return 'The requested resource was not found. Please check the URL and try again.';
         case NetworkErrorType.unknown:
-        default:
           return error.message;
       }
     } else {
@@ -172,8 +170,9 @@ class NetworkErrorHandler {
         case NetworkErrorType.notFound:
           return 'The requested resource was not found.';
         case NetworkErrorType.cors:
+          // CORS isn't applicable for mobile, but handle it for completeness
+          return error.message;
         case NetworkErrorType.unknown:
-        default:
           return error.message;
       }
     }

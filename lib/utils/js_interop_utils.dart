@@ -1,5 +1,4 @@
 @JS()
-library firebase_interop;
 
 import 'package:js/js.dart';
 import 'package:js/js_util.dart' as js_util;

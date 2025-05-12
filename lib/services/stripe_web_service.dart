@@ -1,9 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'dart:async';
 import 'package:js/js_util.dart' as js_util;
-import '../utils/js_interop_utils.dart' as js_interop
-    if (dart.library.io) '../utils/no_op_js_interop.dart' as js_interop;
-import '../utils/web_compatibility_helper.dart';
+import '../utils/js_interop_utils.dart'
+    if (dart.library.io) '../utils/no_op_js_interop.dart';
+// Import with a different alias to avoid name conflicts
+import '../utils/web_compatibility_helper.dart' as web_compat;
 
 class StripeWebService {
   static bool _isInitialized = false;
@@ -49,7 +50,7 @@ class StripeWebService {
           await handleThenable(checkoutPromise);
         } else {
           // Fallback to direct URL navigation if Stripe.js is not available
-          WebCompatibilityHelper.navigateToUrl(
+          web_compat.WebCompatibilityHelper.navigateToUrl(
               'https://checkout.stripe.com/pay/$sessionId');
         }
       } catch (e) {

@@ -1,4 +1,3 @@
-# filepath: /home/kasinadhsarma/ecommerce-final/web/cors_proxy.js
 // A simple CORS proxy for local development
 const express = require('express');
 const cors = require('cors');
