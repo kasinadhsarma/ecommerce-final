@@ -28,23 +28,28 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
-  <title>myapp</title>
+  <title>e-commerce-final</title>
   <link rel="manifest" href="manifest.json">
 
   <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-storage-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-messaging-compat.js"></script>
   
+  <!-- Stripe.js -->
+  <script src="https://js.stripe.com/v3/"></script>
+  
   <script>
-    // Initialize Firebase - this is a placeholder config for development
+    // Initialize Firebase - replace with your actual Firebase config in production
     const firebaseConfig = {
-      apiKey: "AIzaSyDummyApiKeyForDevelopment12345",
-      authDomain: "demo-ecommerce-app.firebaseapp.com",
-      projectId: "demo-ecommerce-app",
-      storageBucket: "demo-ecommerce-app.appspot.com",
-      messagingSenderId: "123456789012",
-      appId: "1:123456789012:web:abc123def456ghi789jkl"
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_STORAGE_BUCKET",
+      messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+      appId: "YOUR_APP_ID"
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);

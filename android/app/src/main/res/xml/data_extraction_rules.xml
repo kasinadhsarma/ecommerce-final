@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+    Data extraction rules are important for Android 12+ to control what data
+    can be backed up and restored when users migrate to a new device.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <!-- User preferences and settings should be backed up -->
+        <include domain="sharedpref" path="."/>
+        <exclude domain="sharedpref" path="device.xml"/>
+        
+        <!-- Database data that contains any non-sensitive data -->
+        <include domain="database" path="."/>
+        <exclude domain="database" path="sensitive_data.db"/>
+        
+        <!-- Files directory that contains user data -->
+        <include domain="file" path="."/>
+        <exclude domain="file" path="cache/"/>
+    </cloud-backup>
+    <device-transfer>
+        <!-- Same as cloud backup rules, but for device-to-device transfers -->
+        <include domain="sharedpref" path="."/>
+        <exclude domain="sharedpref" path="device.xml"/>
+        
+        <include domain="database" path="."/>
+        <exclude domain="database" path="sensitive_data.db"/>
+        
+        <include domain="file" path="."/>
+        <exclude domain="file" path="cache/"/>
+    </device-transfer>
+</data-extraction-rules>

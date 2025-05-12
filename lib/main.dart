@@ -6,9 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 // Import services
 import 'services/stripe_web_service.dart';
-
-// Import the JS interop utility
-import 'utils/js_interop_utils.dart';
+import 'utils/web_compatibility_helper.dart';
 
 // Providers
 import 'providers/auth_provider.dart';
@@ -39,6 +37,12 @@ void main() async {
       // Initialize web-specific services
       StripeWebService.initStripeWeb();
       debugPrint('Running in web mode');
+
+      // Log some information about the web environment
+      if (WebCompatibilityHelper.isWeb) {
+        WebCompatibilityHelper.saveToLocalStorage(
+            'app_last_launch', DateTime.now().toIso8601String());
+      }
     } else {
       // Mobile initialization
       await Firebase.initializeApp();

@@ -54,7 +54,9 @@ dependencies:
   # Storage and API
   http: ^1.1.0
   shared_preferences: ^2.2.2
+  shared_preferences_web: ^2.2.1
   cached_network_image: ^3.3.0
+  cached_network_image_web: ^1.1.0
   intl: ^0.19.0
   
   # UI components
@@ -62,6 +64,12 @@ dependencies:
   carousel_slider: ^4.2.1
   flutter_rating_bar: ^4.0.1
   image_picker: ^1.0.4
+  image_picker_for_web: ^3.0.1
+  
+  # Web-specific packages
+  universal_html: ^2.2.4
+  flutter_web_plugins:
+    sdk: flutter
   
   # Payment
   flutter_stripe: ^9.5.0+1
@@ -98,8 +106,21 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    # General images and icons
     - assets/images/
+    - assets/images/products/
+    - assets/images/banners/
+    - assets/images/logos/
+    - assets/images/placeholders/
     - assets/icons/
+    - assets/icons/categories/
+    - assets/icons/navigation/
+    - assets/icons/payment/
+    # Add fonts and other resources
+    - assets/fonts/
+    - assets/animations/
+    # Add config files if needed
+    - assets/config/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
