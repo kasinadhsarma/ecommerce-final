@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:js_util' as js_util;
 
-// Re-export js_util functions that are needed by various Firebase web implementations
-export 'dart:js_util' show promiseToFuture, dartify, jsify;
-
 /// Converts a JavaScript Promise (Thenable) to a Dart Future.
 Future<T> handleThenable<T>(dynamic jsPromise) {
   return js_util.promiseToFuture<T>(jsPromise);
